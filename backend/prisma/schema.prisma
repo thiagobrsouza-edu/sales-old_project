@@ -26,9 +26,28 @@ model User {
 }
 
 model Profile {
-  id    Int    @id @default(autoincrement())
-  name  String @unique @db.VarChar(255)
-  users User[]
+  id                Int                 @id @default(autoincrement())
+  name              String              @unique @db.VarChar(255)
+  users             User[]
+  profilePermissions ProfilePermission[]
 
   @@map("profiles")
+}
+
+model Permission {
+  id                Int                 @id @default(autoincrement())
+  name              String              @db.VarChar(255)
+  profilePermissions ProfilePermission[]
+
+  @@map("permissions")
+}
+
+model ProfilePermission {
+  id           Int        @id @default(autoincrement())
+  permission   Permission @relation(fields: [permissionId], references: [id])
+  permissionId Int
+  profile      Profile    @relation(fields: [profileId], references: [id])
+  profileId    Int
+
+  @@map("profile-permissions")
 }
