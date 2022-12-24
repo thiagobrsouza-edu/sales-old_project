@@ -38,4 +38,28 @@ export class UserService {
 
   }
 
+  /**
+   * find all method
+   */
+  async findAll() {
+    const userList = await prisma.user.findMany({
+      select: { id: true, name: true, email: true, active: true }
+    });
+    return userList;
+  }
+
+  /**
+   * find by id method
+   */
+  async findById(id: number) {
+    const user = await prisma.user.findFirst({
+      where: { id },
+      select: { id: true, name: true, email: true, active: true, createdAt: true, updatedAt: true }
+    });
+    if (!user) {
+      throw new Error('Nenhum objeto encontrado')
+    }
+    return user;
+  }
+
 }

@@ -11,4 +11,15 @@ export class UserController {
     return res.status(201).json(user);
   }
 
+  async findAll(req: Request, res: Response) {
+    const result = await service.findAll();
+    return res.json(result);
+  }
+
+  async findById(req: Request, res: Response) {
+    const { id } = req.params;
+    const result = await service.findById(+id);
+    return res.json(result);
+  }
+
 }

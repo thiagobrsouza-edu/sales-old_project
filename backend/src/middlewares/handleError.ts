@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from "express-serve-static-core";
+import { NextFunction, Request, Response } from "express";
 
 export function handleError(err: Error, req: Request, res: Response, next: NextFunction) {
 

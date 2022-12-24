@@ -9,8 +9,8 @@ app.use(express.json());
 
 app.use(morgan('dev'));
 
-app.use(handleError);
 app.use(routes);
+app.use(handleError);
 
 const port = 3001;
 app.listen(port, () => {

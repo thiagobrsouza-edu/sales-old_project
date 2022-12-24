@@ -7,3 +7,5 @@ export const routes = Router();
  * user routes
  */
 routes.post('/users', new UserController().create);
+routes.get('/users', new UserController().findAll);
+routes.get('/users/:id', new UserController().findById);
