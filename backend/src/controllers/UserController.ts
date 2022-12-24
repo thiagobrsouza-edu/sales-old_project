@@ -6,8 +6,8 @@ const service = new UserService();
 export class UserController {
 
   async create(req: Request, res: Response) {
-    const { name, email, password, active } = req.body;
-    const result = await service.create({ name, email, password, active });
+    const { name, email, password, active, profileId } = req.body;
+    const result = await service.create({ name, email, password, active, profileId });
     return res.status(201).json(result);
   }
 
@@ -24,8 +24,8 @@ export class UserController {
 
   async update(req: Request, res: Response) {
     const { id } = req.params;
-    const { name, email, active } = req.body;
-    const result = await service.update(+id, { name, email, active });
+    const { name, email, active, profileId } = req.body;
+    const result = await service.update(+id, { name, email, active, profileId });
     return res.json(result);
   }
 

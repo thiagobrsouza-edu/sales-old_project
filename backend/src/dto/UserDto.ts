@@ -3,12 +3,14 @@ class CreateUserDto {
   email!: string;
   password!: string;
   active?: boolean;
+  profileId!: number;
 }
 
 class UpdateUserDto {
   name!: string;
   email!: string;
   active?: boolean;
+  profileId!: number;
 }
 
 export {

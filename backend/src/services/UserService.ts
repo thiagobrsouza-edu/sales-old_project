@@ -8,7 +8,7 @@ export class UserService {
   /**
    * create method
    */
-  async create({ name, email, password }: CreateUserDto) {
+  async create({ name, email, password, profileId }: CreateUserDto) {
     
     if (!name || !email || !password) {
       throw new Error('Há ítens obrigatórios a ser preenchidos');
@@ -27,10 +27,11 @@ export class UserService {
     const user = await prisma.user.create({
       data: {
         name, email, password: hashPassword,
+        profile: { connect: { id: profileId } },
         createdAt: getCurrentTime(), updatedAt: getCurrentTime()
       },
       select: {
-        id: true, name: true, email: true, active: true
+        id: true, name: true, email: true, active: true, profile: true
       }
     });
 
@@ -43,7 +44,7 @@ export class UserService {
    */
   async findAll() {
     const userList = await prisma.user.findMany({
-      select: { id: true, name: true, email: true, active: true }
+      select: { id: true, name: true, email: true, active: true, profile: true }
     });
     return userList;
   }
@@ -54,7 +55,9 @@ export class UserService {
   async findById(id: number) {
     const user = await prisma.user.findFirst({
       where: { id },
-      select: { id: true, name: true, email: true, active: true, createdAt: true, updatedAt: true }
+      select: {
+        id: true, name: true, email: true, active: true, 
+        createdAt: true, updatedAt: true, profile: true }
     });
     if (!user) {
       throw new Error('Nenhum objeto encontrado')
@@ -65,7 +68,7 @@ export class UserService {
   /**
    * update method
    */
-  async update(id: number, { name, email, active }: UpdateUserDto) {
+  async update(id: number, { name, email, active, profileId }: UpdateUserDto) {
     
     const user = await prisma.user.findFirst({
       where: { id }
@@ -82,9 +85,12 @@ export class UserService {
     return await prisma.user.update({
       where: { id },
       data: {
-        name, email, active, updatedAt: getCurrentTime()
+        name, email, active, updatedAt: getCurrentTime(),
+        profile: { connect: { id: profileId } }
       },
-      select: { id: true, name: true, email: true, active: true, createdAt: true, updatedAt: true }
+      select: {
+        id: true, name: true, email: true, active: true, 
+        createdAt: true, updatedAt: true, profile: true }
     });
 
   }

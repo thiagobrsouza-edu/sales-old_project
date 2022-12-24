@@ -11,14 +11,24 @@ datasource db {
 }
 
 model User {
-  id       Int     @id @default(autoincrement())
-  name     String  @db.VarChar(255)
-  email    String  @unique @db.VarChar(255)
-  password String  @db.VarChar(255)
-  active   Boolean @default(true)
+  id        Int     @id @default(autoincrement())
+  name      String  @db.VarChar(255)
+  email     String  @unique @db.VarChar(255)
+  password  String  @db.VarChar(255)
+  active    Boolean @default(true)
+  profile   Profile @relation(fields: [profileId], references: [id])
+  profileId Int
 
   createdAt String?
   updatedAt String?
 
   @@map("users")
+}
+
+model Profile {
+  id    Int    @id @default(autoincrement())
+  name  String @unique @db.VarChar(255)
+  users User[]
+
+  @@map("profiles")
 }
