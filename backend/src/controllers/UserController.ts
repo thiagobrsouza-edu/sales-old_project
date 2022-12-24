@@ -7,8 +7,8 @@ export class UserController {
 
   async create(req: Request, res: Response) {
     const { name, email, password, active } = req.body;
-    const user = await service.create({ name, email, password, active });
-    return res.status(201).json(user);
+    const result = await service.create({ name, email, password, active });
+    return res.status(201).json(result);
   }
 
   async findAll(req: Request, res: Response) {
@@ -19,6 +19,13 @@ export class UserController {
   async findById(req: Request, res: Response) {
     const { id } = req.params;
     const result = await service.findById(+id);
+    return res.json(result);
+  }
+
+  async update(req: Request, res: Response) {
+    const { id } = req.params;
+    const { name, email, active } = req.body;
+    const result = await service.update(+id, { name, email, active });
     return res.json(result);
   }
 

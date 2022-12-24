@@ -1,5 +1,5 @@
 import { hash } from "bcryptjs";
-import { CreateUserDto } from "../dto/UserDto";
+import { CreateUserDto, UpdateUserDto } from "../dto/UserDto";
 import { getCurrentTime } from "../middlewares/currentTime";
 import { prisma } from "../prisma";
 
@@ -60,6 +60,33 @@ export class UserService {
       throw new Error('Nenhum objeto encontrado')
     }
     return user;
+  }
+
+  /**
+   * update method
+   */
+  async update(id: number, { name, email, active }: UpdateUserDto) {
+    
+    const user = await prisma.user.findFirst({
+      where: { id }
+    });
+
+    const exists = await prisma.user.findUnique({
+      where: { email }
+    });
+
+    if (exists && exists.id !== user?.id) {
+      throw new Error('E-mail já cadastrado');
+    }
+
+    return await prisma.user.update({
+      where: { id },
+      data: {
+        name, email, active, updatedAt: getCurrentTime()
+      },
+      select: { id: true, name: true, email: true, active: true, createdAt: true, updatedAt: true }
+    });
+
   }
 
 }

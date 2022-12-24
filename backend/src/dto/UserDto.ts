@@ -5,6 +5,13 @@ class CreateUserDto {
   active?: boolean;
 }
 
+class UpdateUserDto {
+  name!: string;
+  email!: string;
+  active?: boolean;
+}
+
 export {
-  CreateUserDto
+  CreateUserDto,
+  UpdateUserDto
 }

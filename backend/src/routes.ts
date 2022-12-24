@@ -9,3 +9,4 @@ export const routes = Router();
 routes.post('/users', new UserController().create);
 routes.get('/users', new UserController().findAll);
 routes.get('/users/:id', new UserController().findById);
+routes.put('/users/:id', new UserController().update);
