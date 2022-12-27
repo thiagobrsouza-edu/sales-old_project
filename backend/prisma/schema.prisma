@@ -45,9 +45,9 @@ model Permission {
 model ProfilePermission {
   id           Int        @id @default(autoincrement())
   permission   Permission @relation(fields: [permissionId], references: [id])
-  permissionId Int
   profile      Profile    @relation(fields: [profileId], references: [id])
+  permissionId Int
   profileId    Int
 
-  @@map("profile-permissions")
+  @@map("profilePermissions")
 }
