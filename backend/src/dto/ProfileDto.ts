@@ -3,6 +3,13 @@ class CreateProfileDto {
   permissions!: number[];
 }
 
+class UpdateProfileDto {
+  name!: string;
+  permissionsAdd!: number[];
+  permissionsRemove!: number[];
+}
+
 export {
-  CreateProfileDto
+  CreateProfileDto,
+  UpdateProfileDto
 }

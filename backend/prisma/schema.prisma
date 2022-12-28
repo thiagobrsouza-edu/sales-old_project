@@ -29,7 +29,7 @@ model Profile {
   id                Int                 @id @default(autoincrement())
   name              String              @unique @db.VarChar(255)
   users             User[]
-  profilePermissions ProfilePermission[]
+  permissions Permission[] @relation("profile_permissions")
 
   @@map("profiles")
 }
@@ -37,17 +37,7 @@ model Profile {
 model Permission {
   id                Int                 @id @default(autoincrement())
   name              String              @db.VarChar(255)
-  profilePermissions ProfilePermission[]
-
+  profiles Profile[] @relation("profile_permissions")
+  
   @@map("permissions")
-}
-
-model ProfilePermission {
-  id           Int        @id @default(autoincrement())
-  permission   Permission @relation(fields: [permissionId], references: [id])
-  profile      Profile    @relation(fields: [profileId], references: [id])
-  permissionId Int
-  profileId    Int
-
-  @@map("profilePermissions")
 }

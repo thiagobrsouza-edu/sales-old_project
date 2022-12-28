@@ -16,3 +16,7 @@ routes.put('/users/:id', new UserController().update);
  * profile routes
  */
 routes.post('/profiles', new ProfileController().create);
+routes.get('/profiles', new ProfileController().findAll);
+routes.get('/profiles/:id', new ProfileController().findById);
+routes.patch('/profiles/:id', new ProfileController().update);
+routes.delete('/profiles/:id', new ProfileController().deleteOne);
